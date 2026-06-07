@@ -8,6 +8,8 @@ from loguru import logger
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from .feeds import RSS_FEEDS
+from .github_source import fetch_github_signals
+from .arxiv_source import fetch_arxiv_signals
 from .sources import Domain, RawSignal
 
 load_dotenv()
@@ -53,22 +55,26 @@ def _extract_tags(entry: dict) -> list[str]:
     write_disposition="append",
     primary_key="url",
 )
-def rss_signals_resource(hours_lookback: int = 48):
-    total_yielded = 0
+def all_signals_resource(hours_lookback: int = 72):
+    """
+    Combined dlt resource yielding signals from:
+    - RSS feeds (news, blogs)
+    - GitHub API (trending repos)
+    - arXiv API (research papers)
+    """
+    total = 0
 
+    # --- RSS ---
+    logger.info("=== RSS feeds ===")
     for feed_url, source_name, domain in RSS_FEEDS:
         logger.info(f"Fetching {source_name} ({domain.value})")
         try:
             feed = _fetch_feed(feed_url)
-            entries = feed.get("entries", [])
             source_count = 0
-
-            for entry in entries:
+            for entry in feed.get("entries", []):
                 published_at = _parse_date(entry)
-
                 if not _is_recent(published_at, hours=hours_lookback):
                     continue
-
                 signal = RawSignal(
                     source_name=source_name,
                     domain=domain,
@@ -78,29 +84,38 @@ def rss_signals_resource(hours_lookback: int = 48):
                     published_at=published_at,
                     raw_tags=_extract_tags(entry),
                 )
-
                 if not signal.title or not signal.url:
                     continue
-
                 yield signal.to_dict()
                 source_count += 1
-
-            logger.info(f"  → {source_count} signals from {source_name}")
-            total_yielded += source_count
-
+            logger.info(f"  → {source_count} from {source_name}")
+            total += source_count
         except Exception as e:
-            logger.error(f"Failed to fetch {source_name}: {e}")
-            continue
+            logger.error(f"RSS failed {source_name}: {e}")
 
-    logger.info(f"Total signals yielded: {total_yielded}")
+    # --- GitHub ---
+    logger.info("=== GitHub API ===")
+    github_signals = fetch_github_signals(hours_lookback=hours_lookback)
+    for s in github_signals:
+        yield s
+    total += len(github_signals)
+
+    # --- arXiv ---
+    logger.info("=== arXiv API ===")
+    arxiv_signals = fetch_arxiv_signals(hours_lookback=hours_lookback)
+    for s in arxiv_signals:
+        yield s
+    total += len(arxiv_signals)
+
+    logger.info(f"=== Total signals yielded: {total} ===")
 
 
-@dlt.source(name="signal_rss")
-def rss_source(hours_lookback: int = 48):
-    return rss_signals_resource(hours_lookback=hours_lookback)
+@dlt.source(name="signal_all")
+def signal_source(hours_lookback: int = 72):
+    return all_signals_resource(hours_lookback=hours_lookback)
 
 
-def run_ingestion(hours_lookback: int = 48) -> dict:
+def run_ingestion(hours_lookback: int = 72) -> dict:
     pipeline = dlt.pipeline(
         pipeline_name="signal_ingestion",
         destination=dlt.destinations.duckdb(DUCKDB_PATH),
@@ -108,19 +123,24 @@ def run_ingestion(hours_lookback: int = 48) -> dict:
         dev_mode=False,
     )
 
-    logger.info(f"Running RSS ingestion → {DUCKDB_PATH}")
-    load_info = pipeline.run(rss_source(hours_lookback=hours_lookback))
+    logger.info(f"Running full ingestion → {DUCKDB_PATH}")
+    load_info = pipeline.run(signal_source(hours_lookback=hours_lookback))
     logger.info(f"Load complete: {load_info}")
 
     with pipeline.sql_client() as client:
-        with client.execute_query(
-            "SELECT domain, COUNT(*) as count FROM raw_signals GROUP BY domain"
-        ) as cursor:
+        with client.execute_query("""
+            SELECT domain, source_name, COUNT(*) as count
+            FROM raw_signals
+            GROUP BY domain, source_name
+            ORDER BY domain, count DESC
+        """) as cursor:
             rows = cursor.fetchall()
 
-    summary = {row[0]: row[1] for row in rows}
-    logger.info(f"DB summary by domain: {summary}")
-    return summary
+    logger.info("=== DB breakdown ===")
+    for row in rows:
+        logger.info(f"  {row[0]} | {row[1]}: {row[2]}")
+
+    return {f"{row[0]}::{row[1]}": row[2] for row in rows}
 
 
 if __name__ == "__main__":
