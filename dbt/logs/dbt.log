@@ -1,0 +1,826 @@
+[0m19:25:29.857756 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1217410a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1220448f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1223f19d0>]}
+
+
+============================== 19:25:29.904921 | 02240347-b03a-4624-9ca6-49a58d28511e ==============================
+[0m19:25:29.904921 [info ] [MainThread]: Running with dbt=1.11.11
+[0m19:25:29.905408 [debug] [MainThread]: running dbt with arguments {'no_print': 'None', 'quiet': 'False', 'log_cache_events': 'False', 'log_format': 'default', 'fail_fast': 'False', 'debug': 'False', 'profiles_dir': 'dbt', 'warn_error': 'None', 'printer_width': '80', 'introspect': 'True', 'indirect_selection': 'eager', 'empty': 'False', 'use_experimental_parser': 'False', 'write_json': 'True', 'log_path': 'dbt/logs', 'use_colors': 'True', 'invocation_command': 'dbt run --project-dir dbt --profiles-dir dbt', 'partial_parse': 'True', 'cache_selected_only': 'False', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'version_check': 'True'}
+[0m19:25:30.334144 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1218f63c0>]}
+[0m19:25:30.399069 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1220459a0>]}
+[0m19:25:30.402164 [info ] [MainThread]: Registered adapter: duckdb=1.10.1
+[0m19:25:30.522716 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m19:25:30.523943 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m19:25:30.524473 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12418ab70>]}
+[0m19:25:31.958916 [warn ] [MainThread]: [[33mWARNING[0m][MissingArgumentsPropertyInGenericTestDeprecation]: Deprecated
+functionality
+Found top-level arguments to test `accepted_values` defined on 'stg_signals' in
+package 'signal' (models/staging/schema.yml). Arguments to generic tests should
+be nested under the `arguments` property.
+[0m19:25:31.959332 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'deprecation', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'property_': 'warn', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x124771700>]}
+[0m19:25:32.110624 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x124a96600>]}
+[0m19:25:32.190859 [debug] [MainThread]: Wrote artifact WritableManifest to dbt/target/manifest.json
+[0m19:25:32.193014 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt/target/semantic_manifest.json
+[0m19:25:32.243362 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x124b42840>]}
+[0m19:25:32.244116 [info ] [MainThread]: Found 4 models, 7 data tests, 485 macros
+[0m19:25:32.245448 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x124aa9220>]}
+[0m19:25:32.248324 [info ] [MainThread]: 
+[0m19:25:32.249537 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:25:32.249939 [info ] [MainThread]: 
+[0m19:25:32.250586 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m19:25:32.256969 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_signal'
+[0m19:25:32.356026 [debug] [ThreadPool]: Using duckdb connection "list_signal"
+[0m19:25:32.356676 [debug] [ThreadPool]: On list_signal: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "list_signal"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"signal"'
+    
+  
+  
+[0m19:25:32.357030 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:25:32.384168 [debug] [ThreadPool]: SQL status: OK in 0.027 seconds
+[0m19:25:32.385801 [debug] [ThreadPool]: On list_signal: Close
+[0m19:25:32.387102 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_signal, now create_signal_main)
+[0m19:25:32.387468 [debug] [ThreadPool]: Creating schema "database: "signal"
+schema: "main"
+"
+[0m19:25:32.392474 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:25:32.392809 [debug] [ThreadPool]: On create_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "create_signal_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='signal'
+        and type='sqlite'
+    
+  
+[0m19:25:32.393012 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:25:32.394660 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:25:32.395677 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:25:32.395876 [debug] [ThreadPool]: On create_signal_main: BEGIN
+[0m19:25:32.396209 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m19:25:32.396371 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:25:32.396538 [debug] [ThreadPool]: On create_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "create_signal_main"} */
+
+    
+    
+        create schema if not exists "signal"."main"
+    
+[0m19:25:32.397389 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:25:32.397952 [debug] [ThreadPool]: On create_signal_main: COMMIT
+[0m19:25:32.398152 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:25:32.398325 [debug] [ThreadPool]: On create_signal_main: COMMIT
+[0m19:25:32.398590 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m19:25:32.398779 [debug] [ThreadPool]: On create_signal_main: Close
+[0m19:25:32.400150 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_signal_main, now list_signal_main)
+[0m19:25:32.407661 [debug] [ThreadPool]: Using duckdb connection "list_signal_main"
+[0m19:25:32.408222 [debug] [ThreadPool]: On list_signal_main: BEGIN
+[0m19:25:32.409476 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:25:32.411456 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:25:32.412227 [debug] [ThreadPool]: Using duckdb connection "list_signal_main"
+[0m19:25:32.412496 [debug] [ThreadPool]: On list_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "list_signal_main"} */
+select
+      'signal' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'signal'
+  
+[0m19:25:32.416330 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m19:25:32.417663 [debug] [ThreadPool]: On list_signal_main: ROLLBACK
+[0m19:25:32.419539 [debug] [ThreadPool]: Failed to rollback 'list_signal_main'
+[0m19:25:32.420059 [debug] [ThreadPool]: On list_signal_main: Close
+[0m19:25:32.421128 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12248a420>]}
+[0m19:25:32.421914 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:25:32.422387 [debug] [MainThread]: On master: BEGIN
+[0m19:25:32.422719 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:25:32.423559 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:25:32.423992 [debug] [MainThread]: On master: COMMIT
+[0m19:25:32.424294 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:25:32.425064 [debug] [MainThread]: On master: COMMIT
+[0m19:25:32.425639 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:25:32.425892 [debug] [MainThread]: On master: Close
+[0m19:25:32.429641 [debug] [Thread-1 (]: Began running node model.signal.stg_signals
+[0m19:25:32.430979 [info ] [Thread-1 (]: 1 of 4 START sql view model main.stg_signals ................................... [RUN]
+[0m19:25:32.431807 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_signal_main, now model.signal.stg_signals)
+[0m19:25:32.432271 [debug] [Thread-1 (]: Began compiling node model.signal.stg_signals
+[0m19:25:32.438997 [debug] [Thread-1 (]: Writing injected SQL for node "model.signal.stg_signals"
+[0m19:25:32.440197 [debug] [Thread-1 (]: Began executing node model.signal.stg_signals
+[0m19:25:32.462480 [debug] [Thread-1 (]: Writing runtime sql for node "model.signal.stg_signals"
+[0m19:25:32.463564 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:25:32.463851 [debug] [Thread-1 (]: On model.signal.stg_signals: BEGIN
+[0m19:25:32.464070 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:25:32.464709 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:25:32.464924 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:25:32.465153 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+
+  
+  create view "signal"."main"."stg_signals__dbt_tmp" as (
+    
+
+select
+    source_name,
+    domain,
+    title,
+    url,
+    left(summary, 500)           as summary,
+    published_at::timestamp       as published_at,
+    raw_tags,
+    ingested_at::timestamp        as ingested_at,
+    -- Derived fields
+    case
+        when source_name like 'arxiv%'  then 'research'
+        when source_name like 'github%' then 'repository'
+        else 'news'
+    end                           as signal_type,
+    length(title)                 as title_length,
+    length(left(summary, 500))    as summary_length
+from raw.raw_signals
+where title is not null
+  and url  is not null
+  and title != ''
+  );
+
+[0m19:25:32.467337 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m19:25:32.477694 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:25:32.478403 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+alter view "signal"."main"."stg_signals__dbt_tmp" rename to "stg_signals"
+[0m19:25:32.479617 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:25:32.488071 [debug] [Thread-1 (]: On model.signal.stg_signals: COMMIT
+[0m19:25:32.488468 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:25:32.488712 [debug] [Thread-1 (]: On model.signal.stg_signals: COMMIT
+[0m19:25:32.489741 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:25:32.493410 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:25:32.493698 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+
+      drop view if exists "signal"."main"."stg_signals__dbt_backup" cascade
+    
+[0m19:25:32.494258 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m19:25:32.496012 [debug] [Thread-1 (]: On model.signal.stg_signals: Close
+[0m19:25:32.497972 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106da1850>]}
+[0m19:25:32.498618 [info ] [Thread-1 (]: 1 of 4 OK created sql view model main.stg_signals .............................. [[32mOK[0m in 0.06s]
+[0m19:25:32.499052 [debug] [Thread-1 (]: Finished running node model.signal.stg_signals
+[0m19:25:32.500089 [debug] [Thread-3 (]: Began running node model.signal.domain_summary
+[0m19:25:32.500795 [debug] [Thread-4 (]: Began running node model.signal.signal_trends
+[0m19:25:32.501416 [debug] [Thread-2 (]: Began running node model.signal.source_reliability
+[0m19:25:32.502003 [info ] [Thread-3 (]: 2 of 4 START sql table model main.domain_summary ............................... [RUN]
+[0m19:25:32.502765 [info ] [Thread-4 (]: 3 of 4 START sql table model main.signal_trends ................................ [RUN]
+[0m19:25:32.503351 [info ] [Thread-2 (]: 4 of 4 START sql table model main.source_reliability ........................... [RUN]
+[0m19:25:32.504158 [debug] [Thread-3 (]: Acquiring new duckdb connection 'model.signal.domain_summary'
+[0m19:25:32.504825 [debug] [Thread-4 (]: Acquiring new duckdb connection 'model.signal.signal_trends'
+[0m19:25:32.505837 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.signal.source_reliability'
+[0m19:25:32.506621 [debug] [Thread-3 (]: Began compiling node model.signal.domain_summary
+[0m19:25:32.507069 [debug] [Thread-4 (]: Began compiling node model.signal.signal_trends
+[0m19:25:32.507429 [debug] [Thread-2 (]: Began compiling node model.signal.source_reliability
+[0m19:25:32.511518 [debug] [Thread-3 (]: Writing injected SQL for node "model.signal.domain_summary"
+[0m19:25:32.516714 [debug] [Thread-4 (]: Writing injected SQL for node "model.signal.signal_trends"
+[0m19:25:32.521159 [debug] [Thread-2 (]: Writing injected SQL for node "model.signal.source_reliability"
+[0m19:25:32.522395 [debug] [Thread-2 (]: Began executing node model.signal.source_reliability
+[0m19:25:32.522924 [debug] [Thread-4 (]: Began executing node model.signal.signal_trends
+[0m19:25:32.529081 [debug] [Thread-3 (]: Began executing node model.signal.domain_summary
+[0m19:25:32.547140 [debug] [Thread-2 (]: Writing runtime sql for node "model.signal.source_reliability"
+[0m19:25:32.548472 [debug] [Thread-4 (]: Writing runtime sql for node "model.signal.signal_trends"
+[0m19:25:32.550758 [debug] [Thread-3 (]: Writing runtime sql for node "model.signal.domain_summary"
+[0m19:25:32.552153 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:25:32.552501 [debug] [Thread-4 (]: On model.signal.signal_trends: BEGIN
+[0m19:25:32.552734 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m19:25:32.553190 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:25:32.554038 [debug] [Thread-3 (]: On model.signal.domain_summary: BEGIN
+[0m19:25:32.554446 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:25:32.555034 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:25:32.555503 [debug] [Thread-4 (]: SQL status: OK in 0.003 seconds
+[0m19:25:32.556762 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:25:32.555879 [debug] [Thread-2 (]: On model.signal.source_reliability: BEGIN
+[0m19:25:32.557172 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."signal_trends__dbt_tmp"
+  
+    as (
+      
+
+select
+    domain,
+    signal_type,
+    date_trunc('day', published_at)  as signal_date,
+    count(*)                         as signal_count,
+    count(distinct source_name)      as source_count,
+    avg(title_length)                as avg_title_length
+from "signal"."main"."stg_signals"
+group by 1, 2, 3
+order by signal_date desc, signal_count desc
+    );
+  
+  
+[0m19:25:32.557734 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:25:32.556283 [debug] [Thread-3 (]: SQL status: OK in 0.002 seconds
+[0m19:25:32.558941 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:25:32.559413 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."domain_summary__dbt_tmp"
+  
+    as (
+      
+
+select
+    domain,
+    count(*)                              as total_signals,
+    count(distinct source_name)           as total_sources,
+    count(distinct signal_type)           as signal_type_count,
+    min(published_at)                     as earliest_signal,
+    max(published_at)                     as latest_signal,
+    avg(summary_length)                   as avg_summary_length
+from "signal"."main"."stg_signals"
+group by 1
+order by total_signals desc
+    );
+  
+  
+[0m19:25:32.560151 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m19:25:32.561268 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:25:32.561852 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."source_reliability__dbt_tmp"
+  
+    as (
+      
+
+select
+    source_name,
+    domain,
+    signal_type,
+    count(*)                              as total_signals,
+    avg(title_length)                     as avg_title_length,
+    avg(summary_length)                   as avg_summary_length,
+    min(published_at)                     as first_seen,
+    max(published_at)                     as last_seen,
+    count(distinct date_trunc('day', published_at)) as active_days,
+    -- Reliability score: sources with longer summaries
+    -- and more active days score higher
+    round(
+        least(1.0,
+            (avg(summary_length) / 500.0) * 0.5 +
+            (least(active_days, 7) / 7.0) * 0.5
+        )::numeric, 3
+    )                                     as reliability_score
+from "signal"."main"."stg_signals"
+group by 1, 2, 3
+order by reliability_score desc
+    );
+  
+  
+[0m19:25:32.578101 [debug] [Thread-3 (]: SQL status: OK in 0.017 seconds
+[0m19:25:32.583837 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:25:32.584784 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+alter table "signal"."main"."domain_summary__dbt_tmp" rename to "domain_summary"
+[0m19:25:32.585393 [debug] [Thread-4 (]: SQL status: OK in 0.027 seconds
+[0m19:25:32.585960 [debug] [Thread-2 (]: SQL status: OK in 0.023 seconds
+[0m19:25:32.589496 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:25:32.590156 [debug] [Thread-3 (]: SQL status: OK in 0.005 seconds
+[0m19:25:32.593909 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:25:32.594440 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+alter table "signal"."main"."signal_trends__dbt_tmp" rename to "signal_trends"
+[0m19:25:32.601071 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+alter table "signal"."main"."source_reliability__dbt_tmp" rename to "source_reliability"
+[0m19:25:32.602923 [debug] [Thread-3 (]: On model.signal.domain_summary: COMMIT
+[0m19:25:32.605636 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:25:32.604297 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m19:25:32.606182 [debug] [Thread-3 (]: On model.signal.domain_summary: COMMIT
+[0m19:25:32.607011 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m19:25:32.609922 [debug] [Thread-4 (]: On model.signal.signal_trends: COMMIT
+[0m19:25:32.613145 [debug] [Thread-2 (]: On model.signal.source_reliability: COMMIT
+[0m19:25:32.614709 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:25:32.616900 [debug] [Thread-4 (]: On model.signal.signal_trends: COMMIT
+[0m19:25:32.615308 [debug] [Thread-3 (]: SQL status: OK in 0.005 seconds
+[0m19:25:32.624944 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:25:32.625788 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+      drop table if exists "signal"."main"."domain_summary__dbt_backup" cascade
+    
+[0m19:25:32.615849 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:25:32.626507 [debug] [Thread-2 (]: On model.signal.source_reliability: COMMIT
+[0m19:25:32.627174 [debug] [Thread-4 (]: SQL status: OK in 0.010 seconds
+[0m19:25:32.631393 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:25:32.632239 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+      drop table if exists "signal"."main"."signal_trends__dbt_backup" cascade
+    
+[0m19:25:32.633236 [debug] [Thread-3 (]: SQL status: OK in 0.007 seconds
+[0m19:25:32.636740 [debug] [Thread-3 (]: On model.signal.domain_summary: Close
+[0m19:25:32.637371 [debug] [Thread-2 (]: SQL status: OK in 0.010 seconds
+[0m19:25:32.638948 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x12509de50>]}
+[0m19:25:32.639720 [debug] [Thread-4 (]: SQL status: OK in 0.007 seconds
+[0m19:25:32.644316 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:25:32.647807 [debug] [Thread-4 (]: On model.signal.signal_trends: Close
+[0m19:25:32.648674 [info ] [Thread-3 (]: 2 of 4 OK created sql table model main.domain_summary .......................... [[32mOK[0m in 0.13s]
+[0m19:25:32.649525 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+      drop table if exists "signal"."main"."source_reliability__dbt_backup" cascade
+    
+[0m19:25:32.650688 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1250aecc0>]}
+[0m19:25:32.651759 [debug] [Thread-3 (]: Finished running node model.signal.domain_summary
+[0m19:25:32.653171 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m19:25:32.652719 [info ] [Thread-4 (]: 3 of 4 OK created sql table model main.signal_trends ........................... [[32mOK[0m in 0.15s]
+[0m19:25:32.655473 [debug] [Thread-2 (]: On model.signal.source_reliability: Close
+[0m19:25:32.656683 [debug] [Thread-4 (]: Finished running node model.signal.signal_trends
+[0m19:25:32.657863 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '02240347-b03a-4624-9ca6-49a58d28511e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x124fabd70>]}
+[0m19:25:32.659321 [info ] [Thread-2 (]: 4 of 4 OK created sql table model main.source_reliability ...................... [[32mOK[0m in 0.15s]
+[0m19:25:32.660228 [debug] [Thread-2 (]: Finished running node model.signal.source_reliability
+[0m19:25:32.662025 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:25:32.662397 [debug] [MainThread]: On master: BEGIN
+[0m19:25:32.662590 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:25:32.677076 [debug] [MainThread]: SQL status: OK in 0.014 seconds
+[0m19:25:32.677569 [debug] [MainThread]: On master: COMMIT
+[0m19:25:32.677810 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:25:32.678002 [debug] [MainThread]: On master: COMMIT
+[0m19:25:32.678421 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:25:32.678617 [debug] [MainThread]: On master: Close
+[0m19:25:32.679096 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:25:32.679581 [debug] [MainThread]: Connection 'model.signal.stg_signals' was properly closed.
+[0m19:25:32.680783 [debug] [MainThread]: Connection 'model.signal.domain_summary' was properly closed.
+[0m19:25:32.681448 [debug] [MainThread]: Connection 'model.signal.signal_trends' was properly closed.
+[0m19:25:32.681792 [debug] [MainThread]: Connection 'model.signal.source_reliability' was properly closed.
+[0m19:25:32.682229 [info ] [MainThread]: 
+[0m19:25:32.682699 [info ] [MainThread]: Finished running 3 table models, 1 view model in 0 hours 0 minutes and 0.43 seconds (0.43s).
+[0m19:25:32.684087 [debug] [MainThread]: Command end result
+[0m19:25:32.831103 [debug] [MainThread]: Wrote artifact WritableManifest to dbt/target/manifest.json
+[0m19:25:32.832889 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt/target/semantic_manifest.json
+[0m19:25:32.836798 [debug] [MainThread]: Wrote artifact RunExecutionResult to dbt/target/run_results.json
+[0m19:25:32.837120 [info ] [MainThread]: 
+[0m19:25:32.837366 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:25:32.837755 [info ] [MainThread]: 
+[0m19:25:32.838045 [info ] [MainThread]: Done. PASS=4 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=4
+[0m19:25:32.839770 [warn ] [MainThread]: [[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+Summary of encountered deprecations:
+- MissingArgumentsPropertyInGenericTestDeprecation: 2 occurrences
+To see all deprecation instances instead of just the first occurrence of each,
+run command again with the `--show-all-deprecations` flag. You may also need to
+run with `--no-partial-parse` as some deprecations are only encountered during
+parsing.
+[0m19:25:32.860636 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 3.1622787, "process_in_blocks": "0", "process_kernel_time": 0.93653, "process_mem_max_rss": "195264512", "process_out_blocks": "0", "process_user_time": 4.545142}
+[0m19:25:32.861847 [debug] [MainThread]: Command `dbt run` succeeded at 19:25:32.861674 after 3.16 seconds
+[0m19:25:32.862517 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1250515b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x125051e20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x125051c40>]}
+[0m19:25:32.863048 [debug] [MainThread]: Flushing usage events
+[0m19:25:33.497478 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m19:34:52.971202 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1066eae10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1077948f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107e31970>]}
+
+
+============================== 19:34:52.977546 | d0e88178-dfb3-4a51-af4b-478210db45a5 ==============================
+[0m19:34:52.977546 [info ] [MainThread]: Running with dbt=1.11.11
+[0m19:34:52.978354 [debug] [MainThread]: running dbt with arguments {'quiet': 'False', 'log_path': 'dbt/logs', 'static_parser': 'True', 'profiles_dir': 'dbt', 'indirect_selection': 'eager', 'write_json': 'True', 'warn_error': 'None', 'no_print': 'None', 'debug': 'False', 'printer_width': '80', 'empty': 'False', 'cache_selected_only': 'False', 'introspect': 'True', 'partial_parse': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'log_format': 'default', 'use_experimental_parser': 'False', 'version_check': 'True', 'target_path': 'None', 'log_cache_events': 'False', 'use_colors': 'True', 'invocation_command': 'dbt run --project-dir dbt --profiles-dir dbt'}
+[0m19:34:53.313249 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107625610>]}
+[0m19:34:53.380101 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107d74b30>]}
+[0m19:34:53.382479 [info ] [MainThread]: Registered adapter: duckdb=1.10.1
+[0m19:34:53.500634 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m19:34:53.601101 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m19:34:53.601530 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m19:34:53.601754 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m19:34:53.628533 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1083a75f0>]}
+[0m19:34:53.698268 [debug] [MainThread]: Wrote artifact WritableManifest to dbt/target/manifest.json
+[0m19:34:53.700809 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt/target/semantic_manifest.json
+[0m19:34:53.713053 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087bf620>]}
+[0m19:34:53.713575 [info ] [MainThread]: Found 4 models, 7 data tests, 485 macros
+[0m19:34:53.713837 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087d0bc0>]}
+[0m19:34:53.715315 [info ] [MainThread]: 
+[0m19:34:53.715598 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:34:53.716156 [info ] [MainThread]: 
+[0m19:34:53.716652 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m19:34:53.720456 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_signal'
+[0m19:34:53.806464 [debug] [ThreadPool]: Using duckdb connection "list_signal"
+[0m19:34:53.806862 [debug] [ThreadPool]: On list_signal: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "list_signal"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"signal"'
+    
+  
+  
+[0m19:34:53.807085 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:34:53.828897 [debug] [ThreadPool]: SQL status: OK in 0.022 seconds
+[0m19:34:53.830562 [debug] [ThreadPool]: On list_signal: Close
+[0m19:34:53.831250 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_signal, now create_signal_main)
+[0m19:34:53.831591 [debug] [ThreadPool]: Creating schema "database: "signal"
+schema: "main"
+"
+[0m19:34:53.836501 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:34:53.838087 [debug] [ThreadPool]: On create_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "create_signal_main"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='signal'
+        and type='sqlite'
+    
+  
+[0m19:34:53.838563 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:34:53.840766 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:34:53.842035 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:34:53.842562 [debug] [ThreadPool]: On create_signal_main: BEGIN
+[0m19:34:53.843435 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m19:34:53.843906 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:34:53.844260 [debug] [ThreadPool]: On create_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "create_signal_main"} */
+
+    
+    
+        create schema if not exists "signal"."main"
+    
+[0m19:34:53.845354 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:34:53.846163 [debug] [ThreadPool]: On create_signal_main: COMMIT
+[0m19:34:53.846414 [debug] [ThreadPool]: Using duckdb connection "create_signal_main"
+[0m19:34:53.846606 [debug] [ThreadPool]: On create_signal_main: COMMIT
+[0m19:34:53.847154 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m19:34:53.847659 [debug] [ThreadPool]: On create_signal_main: Close
+[0m19:34:53.850100 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_signal_main, now list_signal_main)
+[0m19:34:53.856859 [debug] [ThreadPool]: Using duckdb connection "list_signal_main"
+[0m19:34:53.857539 [debug] [ThreadPool]: On list_signal_main: BEGIN
+[0m19:34:53.857892 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:34:53.858810 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:34:53.860042 [debug] [ThreadPool]: Using duckdb connection "list_signal_main"
+[0m19:34:53.860518 [debug] [ThreadPool]: On list_signal_main: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "connection_name": "list_signal_main"} */
+select
+      'signal' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main'
+    and lower(table_catalog) = 'signal'
+  
+[0m19:34:53.865697 [debug] [ThreadPool]: SQL status: OK in 0.005 seconds
+[0m19:34:53.868083 [debug] [ThreadPool]: On list_signal_main: ROLLBACK
+[0m19:34:53.870449 [debug] [ThreadPool]: Failed to rollback 'list_signal_main'
+[0m19:34:53.870847 [debug] [ThreadPool]: On list_signal_main: Close
+[0m19:34:53.873882 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1049c8500>]}
+[0m19:34:53.874830 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:34:53.875291 [debug] [MainThread]: On master: BEGIN
+[0m19:34:53.875654 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:34:53.876759 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:34:53.877211 [debug] [MainThread]: On master: COMMIT
+[0m19:34:53.877592 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:34:53.877894 [debug] [MainThread]: On master: COMMIT
+[0m19:34:53.878441 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:34:53.878957 [debug] [MainThread]: On master: Close
+[0m19:34:53.881539 [debug] [Thread-1 (]: Began running node model.signal.stg_signals
+[0m19:34:53.882300 [info ] [Thread-1 (]: 1 of 4 START sql view model main.stg_signals ................................... [RUN]
+[0m19:34:53.882747 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_signal_main, now model.signal.stg_signals)
+[0m19:34:53.882995 [debug] [Thread-1 (]: Began compiling node model.signal.stg_signals
+[0m19:34:53.893112 [debug] [Thread-1 (]: Writing injected SQL for node "model.signal.stg_signals"
+[0m19:34:53.894835 [debug] [Thread-1 (]: Began executing node model.signal.stg_signals
+[0m19:34:54.078629 [debug] [Thread-1 (]: Writing runtime sql for node "model.signal.stg_signals"
+[0m19:34:54.079416 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.079650 [debug] [Thread-1 (]: On model.signal.stg_signals: BEGIN
+[0m19:34:54.079835 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m19:34:54.080511 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.081001 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.081461 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+
+  
+  create view "signal"."main"."stg_signals__dbt_tmp" as (
+    
+
+select
+    source_name,
+    domain,
+    title,
+    url,
+    left(summary, 500)           as summary,
+    published_at::timestamp       as published_at,
+    raw_tags,
+    ingested_at::timestamp        as ingested_at,
+    -- Derived fields
+    case
+        when source_name like 'arxiv%'  then 'research'
+        when source_name like 'github%' then 'repository'
+        else 'news'
+    end                           as signal_type,
+    length(title)                 as title_length,
+    length(left(summary, 500))    as summary_length
+from raw.raw_signals
+where title is not null
+  and url  is not null
+  and title != ''
+  );
+
+[0m19:34:54.083513 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m19:34:54.088075 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.088417 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+alter view "signal"."main"."stg_signals" rename to "stg_signals__dbt_backup"
+[0m19:34:54.089629 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.091843 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.092108 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+alter view "signal"."main"."stg_signals__dbt_tmp" rename to "stg_signals"
+[0m19:34:54.092604 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m19:34:54.102832 [debug] [Thread-1 (]: On model.signal.stg_signals: COMMIT
+[0m19:34:54.103289 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.103528 [debug] [Thread-1 (]: On model.signal.stg_signals: COMMIT
+[0m19:34:54.104619 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.108577 [debug] [Thread-1 (]: Using duckdb connection "model.signal.stg_signals"
+[0m19:34:54.108866 [debug] [Thread-1 (]: On model.signal.stg_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.stg_signals"} */
+
+      drop view if exists "signal"."main"."stg_signals__dbt_backup" cascade
+    
+[0m19:34:54.109527 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m19:34:54.111426 [debug] [Thread-1 (]: On model.signal.stg_signals: Close
+[0m19:34:54.113124 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108348230>]}
+[0m19:34:54.113686 [info ] [Thread-1 (]: 1 of 4 OK created sql view model main.stg_signals .............................. [[32mOK[0m in 0.23s]
+[0m19:34:54.114085 [debug] [Thread-1 (]: Finished running node model.signal.stg_signals
+[0m19:34:54.115141 [debug] [Thread-3 (]: Began running node model.signal.domain_summary
+[0m19:34:54.115725 [debug] [Thread-4 (]: Began running node model.signal.signal_trends
+[0m19:34:54.116412 [info ] [Thread-3 (]: 2 of 4 START sql table model main.domain_summary ............................... [RUN]
+[0m19:34:54.116896 [debug] [Thread-2 (]: Began running node model.signal.source_reliability
+[0m19:34:54.118174 [debug] [Thread-3 (]: Acquiring new duckdb connection 'model.signal.domain_summary'
+[0m19:34:54.117495 [info ] [Thread-4 (]: 3 of 4 START sql table model main.signal_trends ................................ [RUN]
+[0m19:34:54.118930 [info ] [Thread-2 (]: 4 of 4 START sql table model main.source_reliability ........................... [RUN]
+[0m19:34:54.119439 [debug] [Thread-3 (]: Began compiling node model.signal.domain_summary
+[0m19:34:54.120068 [debug] [Thread-4 (]: Acquiring new duckdb connection 'model.signal.signal_trends'
+[0m19:34:54.120761 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.signal.source_reliability'
+[0m19:34:54.126511 [debug] [Thread-3 (]: Writing injected SQL for node "model.signal.domain_summary"
+[0m19:34:54.127554 [debug] [Thread-4 (]: Began compiling node model.signal.signal_trends
+[0m19:34:54.128137 [debug] [Thread-2 (]: Began compiling node model.signal.source_reliability
+[0m19:34:54.133789 [debug] [Thread-4 (]: Writing injected SQL for node "model.signal.signal_trends"
+[0m19:34:54.138910 [debug] [Thread-2 (]: Writing injected SQL for node "model.signal.source_reliability"
+[0m19:34:54.140035 [debug] [Thread-3 (]: Began executing node model.signal.domain_summary
+[0m19:34:54.141036 [debug] [Thread-2 (]: Began executing node model.signal.source_reliability
+[0m19:34:54.162338 [debug] [Thread-4 (]: Began executing node model.signal.signal_trends
+[0m19:34:54.177512 [debug] [Thread-3 (]: Writing runtime sql for node "model.signal.domain_summary"
+[0m19:34:54.182229 [debug] [Thread-4 (]: Writing runtime sql for node "model.signal.signal_trends"
+[0m19:34:54.183332 [debug] [Thread-2 (]: Writing runtime sql for node "model.signal.source_reliability"
+[0m19:34:54.184407 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.184662 [debug] [Thread-3 (]: On model.signal.domain_summary: BEGIN
+[0m19:34:54.185016 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:34:54.186007 [debug] [Thread-3 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.187739 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.188069 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.188374 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.188583 [debug] [Thread-4 (]: On model.signal.signal_trends: BEGIN
+[0m19:34:54.188965 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."domain_summary__dbt_tmp"
+  
+    as (
+      
+
+select
+    domain,
+    count(*)                              as total_signals,
+    count(distinct source_name)           as total_sources,
+    count(distinct signal_type)           as signal_type_count,
+    min(published_at)                     as earliest_signal,
+    max(published_at)                     as latest_signal,
+    avg(summary_length)                   as avg_summary_length
+from "signal"."main"."stg_signals"
+group by 1
+order by total_signals desc
+    );
+  
+  
+[0m19:34:54.189186 [debug] [Thread-2 (]: On model.signal.source_reliability: BEGIN
+[0m19:34:54.189378 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m19:34:54.189959 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:34:54.191046 [debug] [Thread-4 (]: SQL status: OK in 0.002 seconds
+[0m19:34:54.191664 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.192238 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."signal_trends__dbt_tmp"
+  
+    as (
+      
+
+select
+    domain,
+    signal_type,
+    date_trunc('day', published_at)  as signal_date,
+    count(*)                         as signal_count,
+    count(distinct source_name)      as source_count,
+    avg(title_length)                as avg_title_length
+from "signal"."main"."stg_signals"
+group by 1, 2, 3
+order by signal_date desc, signal_count desc
+    );
+  
+  
+[0m19:34:54.192878 [debug] [Thread-2 (]: SQL status: OK in 0.003 seconds
+[0m19:34:54.193403 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.193934 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+  
+    
+    
+
+    create  table
+      "signal"."main"."source_reliability__dbt_tmp"
+  
+    as (
+      
+
+select
+    source_name,
+    domain,
+    signal_type,
+    count(*)                              as total_signals,
+    avg(title_length)                     as avg_title_length,
+    avg(summary_length)                   as avg_summary_length,
+    min(published_at)                     as first_seen,
+    max(published_at)                     as last_seen,
+    count(distinct date_trunc('day', published_at)) as active_days,
+    -- Reliability score: sources with longer summaries
+    -- and more active days score higher
+    round(
+        least(1.0,
+            (avg(summary_length) / 500.0) * 0.5 +
+            (least(active_days, 7) / 7.0) * 0.5
+        )::numeric, 3
+    )                                     as reliability_score
+from "signal"."main"."stg_signals"
+group by 1, 2, 3
+order by reliability_score desc
+    );
+  
+  
+[0m19:34:54.198892 [debug] [Thread-4 (]: SQL status: OK in 0.006 seconds
+[0m19:34:54.199412 [debug] [Thread-3 (]: SQL status: OK in 0.010 seconds
+[0m19:34:54.205125 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.206633 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.207359 [debug] [Thread-2 (]: SQL status: OK in 0.013 seconds
+[0m19:34:54.207794 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'signal_trends'
+  
+[0m19:34:54.208294 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'domain_summary'
+  
+[0m19:34:54.209743 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.211758 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'source_reliability'
+  
+[0m19:34:54.212371 [debug] [Thread-3 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.212759 [debug] [Thread-4 (]: SQL status: OK in 0.002 seconds
+[0m19:34:54.214821 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.215432 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m19:34:54.217034 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.217537 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+    SELECT COUNT(*) as remaining_indexes
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'domain_summary'
+  
+[0m19:34:54.219319 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.219844 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+    SELECT COUNT(*) as remaining_indexes
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'signal_trends'
+  
+[0m19:34:54.220783 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+    SELECT COUNT(*) as remaining_indexes
+    FROM duckdb_indexes()
+    WHERE schema_name = 'main'
+      AND table_name = 'source_reliability'
+  
+[0m19:34:54.221569 [debug] [Thread-3 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.222237 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.222800 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m19:34:54.228729 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.239470 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+alter table "signal"."main"."domain_summary" rename to "domain_summary__dbt_backup"
+[0m19:34:54.233693 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.240567 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+alter table "signal"."main"."signal_trends" rename to "signal_trends__dbt_backup"
+[0m19:34:54.238724 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.243634 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+alter table "signal"."main"."source_reliability" rename to "source_reliability__dbt_backup"
+[0m19:34:54.243170 [debug] [Thread-3 (]: SQL status: OK in 0.003 seconds
+[0m19:34:54.248770 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.249401 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+alter table "signal"."main"."domain_summary__dbt_tmp" rename to "domain_summary"
+[0m19:34:54.250160 [debug] [Thread-2 (]: SQL status: OK in 0.006 seconds
+[0m19:34:54.255213 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.255992 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+alter table "signal"."main"."source_reliability__dbt_tmp" rename to "source_reliability"
+[0m19:34:54.257307 [debug] [Thread-2 (]: SQL status: OK in 0.000 seconds
+[0m19:34:54.270827 [debug] [Thread-3 (]: SQL status: OK in 0.021 seconds
+[0m19:34:54.276963 [debug] [Thread-3 (]: On model.signal.domain_summary: COMMIT
+[0m19:34:54.242038 [debug] [Thread-4 (]: SQL status: OK in 0.000 seconds
+[0m19:34:54.281098 [debug] [Thread-2 (]: On model.signal.source_reliability: COMMIT
+[0m19:34:54.281729 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.288652 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.291473 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+alter table "signal"."main"."signal_trends__dbt_tmp" rename to "signal_trends"
+[0m19:34:54.289872 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.292514 [debug] [Thread-2 (]: On model.signal.source_reliability: COMMIT
+[0m19:34:54.290329 [debug] [Thread-3 (]: On model.signal.domain_summary: COMMIT
+[0m19:34:54.294952 [debug] [Thread-4 (]: SQL status: OK in 0.003 seconds
+[0m19:34:54.299637 [debug] [Thread-4 (]: On model.signal.signal_trends: COMMIT
+[0m19:34:54.300976 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.302173 [debug] [Thread-4 (]: On model.signal.signal_trends: COMMIT
+[0m19:34:54.303101 [debug] [Thread-3 (]: SQL status: OK in 0.006 seconds
+[0m19:34:54.307461 [debug] [Thread-3 (]: Using duckdb connection "model.signal.domain_summary"
+[0m19:34:54.308139 [debug] [Thread-3 (]: On model.signal.domain_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.domain_summary"} */
+
+      drop table if exists "signal"."main"."domain_summary__dbt_backup" cascade
+    
+[0m19:34:54.308616 [debug] [Thread-4 (]: SQL status: OK in 0.006 seconds
+[0m19:34:54.295794 [debug] [Thread-2 (]: SQL status: OK in 0.003 seconds
+[0m19:34:54.313186 [debug] [Thread-4 (]: Using duckdb connection "model.signal.signal_trends"
+[0m19:34:54.320890 [debug] [Thread-4 (]: On model.signal.signal_trends: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.signal_trends"} */
+
+      drop table if exists "signal"."main"."signal_trends__dbt_backup" cascade
+    
+[0m19:34:54.321539 [debug] [Thread-3 (]: SQL status: OK in 0.012 seconds
+[0m19:34:54.322123 [debug] [Thread-2 (]: Using duckdb connection "model.signal.source_reliability"
+[0m19:34:54.324938 [debug] [Thread-3 (]: On model.signal.domain_summary: Close
+[0m19:34:54.325562 [debug] [Thread-2 (]: On model.signal.source_reliability: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "signal", "target_name": "dev", "node_id": "model.signal.source_reliability"} */
+
+      drop table if exists "signal"."main"."source_reliability__dbt_backup" cascade
+    
+[0m19:34:54.326082 [debug] [Thread-4 (]: SQL status: OK in 0.003 seconds
+[0m19:34:54.327468 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108ce9bb0>]}
+[0m19:34:54.330324 [debug] [Thread-4 (]: On model.signal.signal_trends: Close
+[0m19:34:54.332430 [info ] [Thread-3 (]: 2 of 4 OK created sql table model main.domain_summary .......................... [[32mOK[0m in 0.21s]
+[0m19:34:54.335747 [debug] [Thread-2 (]: SQL status: OK in 0.007 seconds
+[0m19:34:54.337935 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108c82ae0>]}
+[0m19:34:54.339165 [debug] [Thread-3 (]: Finished running node model.signal.domain_summary
+[0m19:34:54.341316 [debug] [Thread-2 (]: On model.signal.source_reliability: Close
+[0m19:34:54.344947 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': 'd0e88178-dfb3-4a51-af4b-478210db45a5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108c81f70>]}
+[0m19:34:54.345913 [info ] [Thread-2 (]: 4 of 4 OK created sql table model main.source_reliability ...................... [[32mOK[0m in 0.22s]
+[0m19:34:54.342973 [info ] [Thread-4 (]: 3 of 4 OK created sql table model main.signal_trends ........................... [[32mOK[0m in 0.22s]
+[0m19:34:54.347857 [debug] [Thread-2 (]: Finished running node model.signal.source_reliability
+[0m19:34:54.349453 [debug] [Thread-4 (]: Finished running node model.signal.signal_trends
+[0m19:34:54.352486 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:34:54.353061 [debug] [MainThread]: On master: BEGIN
+[0m19:34:54.353422 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:34:54.354163 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:34:54.354569 [debug] [MainThread]: On master: COMMIT
+[0m19:34:54.354908 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:34:54.355224 [debug] [MainThread]: On master: COMMIT
+[0m19:34:54.355879 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:34:54.356325 [debug] [MainThread]: On master: Close
+[0m19:34:54.356861 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:34:54.357204 [debug] [MainThread]: Connection 'model.signal.stg_signals' was properly closed.
+[0m19:34:54.357495 [debug] [MainThread]: Connection 'model.signal.domain_summary' was properly closed.
+[0m19:34:54.357788 [debug] [MainThread]: Connection 'model.signal.signal_trends' was properly closed.
+[0m19:34:54.358057 [debug] [MainThread]: Connection 'model.signal.source_reliability' was properly closed.
+[0m19:34:54.358498 [info ] [MainThread]: 
+[0m19:34:54.358928 [info ] [MainThread]: Finished running 3 table models, 1 view model in 0 hours 0 minutes and 0.64 seconds (0.64s).
+[0m19:34:54.360053 [debug] [MainThread]: Command end result
+[0m19:34:54.390702 [debug] [MainThread]: Wrote artifact WritableManifest to dbt/target/manifest.json
+[0m19:34:54.392551 [debug] [MainThread]: Wrote artifact SemanticManifest to dbt/target/semantic_manifest.json
+[0m19:34:54.396945 [debug] [MainThread]: Wrote artifact RunExecutionResult to dbt/target/run_results.json
+[0m19:34:54.397299 [info ] [MainThread]: 
+[0m19:34:54.397570 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:34:54.397767 [info ] [MainThread]: 
+[0m19:34:54.397988 [info ] [MainThread]: Done. PASS=4 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=4
+[0m19:34:54.400245 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 1.529302, "process_in_blocks": "0", "process_kernel_time": 0.499213, "process_mem_max_rss": "178831360", "process_out_blocks": "0", "process_user_time": 2.19547}
+[0m19:34:54.400704 [debug] [MainThread]: Command `dbt run` succeeded at 19:34:54.400637 after 1.53 seconds
+[0m19:34:54.401011 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108b4f170>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108c21b20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108c22a80>]}
+[0m19:34:54.401283 [debug] [MainThread]: Flushing usage events
+[0m19:34:58.568531 [debug] [MainThread]: An error was encountered while trying to flush usage events

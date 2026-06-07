@@ -1,0 +1,7 @@
+signal:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '/Users/saksh/signal/data/duckdb/signal.db'
+      threads: 4

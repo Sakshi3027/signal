@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_signals
+    description: "Cleaned and enriched signals from all ingestion sources"
+    columns:
+      - name: url
+        description: "Unique URL of the signal"
+        tests:
+          - not_null
+          - unique
+      - name: domain
+        description: "Signal domain: ai_ml or fintech"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['ai_ml', 'fintech']
+      - name: signal_type
+        description: "Type of signal: news, repository, or research"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['news', 'repository', 'research']
+      - name: title
+        tests:
+          - not_null
