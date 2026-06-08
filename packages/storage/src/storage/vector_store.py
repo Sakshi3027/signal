@@ -23,8 +23,15 @@ _embedder = None
 def get_client() -> QdrantClient:
     global _client
     if _client is None:
-        _client = QdrantClient(url=QDRANT_URL)
-        logger.info(f"Connected to Qdrant at {QDRANT_URL}")
+        url = os.getenv("QDRANT_URL", "http://localhost:6333")
+        api_key = os.getenv("QDRANT_API_KEY")
+        
+        if api_key:
+            _client = QdrantClient(url=url, api_key=api_key)
+            logger.info(f"Connected to Qdrant Cloud at {url}")
+        else:
+            _client = QdrantClient(url=url)
+            logger.info(f"Connected to Qdrant (local) at {url}")
     return _client
 
 
