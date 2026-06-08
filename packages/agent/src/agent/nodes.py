@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from loguru import logger
 from langchain_ollama import ChatOllama
+from langsmith import traceable
 from .state import AgentState, SignalBatch, IntelligenceReport
 from .tools import read_signals_for_domain, get_domain_stats
 
@@ -9,10 +10,7 @@ from .tools import read_signals_for_domain, get_domain_stats
 llm = ChatOllama(model="mistral", temperature=0.3)
 
 
-# ─────────────────────────────────────────
-# NODE 1: SUPERVISOR
-# Reads DuckDB stats, decides what to process
-# ─────────────────────────────────────────
+@traceable(name="supervisor", run_type="chain")
 def supervisor_node(state: AgentState) -> AgentState:
     logger.info("=== SUPERVISOR: deciding what to investigate ===")
 
@@ -23,7 +21,6 @@ def supervisor_node(state: AgentState) -> AgentState:
         logger.warning("No signals found in DB. Run ingestion first.")
         return {**state, "status": "failed", "error": "No signals in DB"}
 
-    # Build batches for each domain that has signals
     batches = []
     domains_to_process = []
 
@@ -55,10 +52,7 @@ def supervisor_node(state: AgentState) -> AgentState:
     }
 
 
-# ─────────────────────────────────────────
-# NODE 2: RESEARCHER
-# Takes current batch, extracts structured context
-# ─────────────────────────────────────────
+@traceable(name="researcher", run_type="chain")
 def researcher_node(state: AgentState) -> AgentState:
     idx = state["current_domain_index"]
     batch = state["batches"][idx]
@@ -66,7 +60,6 @@ def researcher_node(state: AgentState) -> AgentState:
 
     logger.info(f"=== RESEARCHER: extracting context for '{domain}' ===")
 
-    # Format signals into a readable block for the LLM
     signal_lines = []
     for i, sig in enumerate(batch["signals"][:20], 1):
         title = sig.get("title", "")
@@ -102,10 +95,7 @@ Respond with a structured analysis in plain text. Be specific and concise."""
     }
 
 
-# ─────────────────────────────────────────
-# NODE 3: ANALYST
-# Writes the final intelligence report
-# ─────────────────────────────────────────
+@traceable(name="analyst", run_type="chain")
 def analyst_node(state: AgentState) -> AgentState:
     batch = state["current_batch"]
     domain = batch["domain"]
@@ -145,12 +135,63 @@ Be specific, factual, and concise. No filler phrases."""
 
     logger.info(f"  Generated report ({len(raw_report)} chars)")
 
-    # Parse the structured response
     report = _parse_report(raw_report, domain)
 
     return {
         **state,
         "current_report": report,
+    }
+
+
+@traceable(name="judge", run_type="chain")
+def judge_node(state: AgentState) -> AgentState:
+    report = state["current_report"]
+    domain = report["domain"]
+
+    logger.info(f"=== JUDGE: scoring report for '{domain}' ===")
+
+    prompt = f"""You are a quality judge for intelligence reports. Score this report strictly.
+
+REPORT:
+Title: {report['title']}
+Summary: {report['summary']}
+Key Themes: {', '.join(report['key_themes'])}
+Notable Signals: {', '.join(report['notable_signals'])}
+Sentiment: {report['sentiment']}
+
+Score this report on:
+1. Specificity (does it mention concrete facts, not vague generalities?)
+2. Completeness (does it have all sections filled with real content?)
+3. Coherence (does it make sense as an intelligence briefing?)
+
+Respond in exactly this format:
+SCORE: [a number between 0.0 and 1.0]
+FEEDBACK: [one sentence explaining the score]"""
+
+    response = llm.invoke(prompt)
+    raw = response.content.strip()
+
+    score = 0.5
+    feedback = "Could not parse judge response"
+
+    for line in raw.split("\n"):
+        line = line.strip()
+        if line.startswith("SCORE:"):
+            try:
+                score = float(line.replace("SCORE:", "").strip())
+                score = max(0.0, min(1.0, score))
+            except ValueError:
+                pass
+        elif line.startswith("FEEDBACK:"):
+            feedback = line.replace("FEEDBACK:", "").strip()
+
+    logger.info(f"  Quality score: {score:.2f} — {feedback}")
+
+    scored_report = {**report, "quality_score": score, "quality_feedback": feedback}
+
+    return {
+        **state,
+        "current_report": scored_report,
     }
 
 
@@ -163,7 +204,6 @@ def _parse_report(raw: str, domain: str) -> IntelligenceReport:
     key_themes = []
     notable_signals = []
     sentiment = "neutral"
-
     current_section = None
 
     for line in lines:
@@ -196,10 +236,8 @@ def _parse_report(raw: str, domain: str) -> IntelligenceReport:
             elif current_section == "signals":
                 notable_signals.append(item)
         elif current_section == "summary" and line:
-            # Multi-line summary
             summary = (summary + " " + line).strip()
 
-    # Fallbacks if parsing missed something
     if not title:
         title = f"{domain.upper()} Intelligence Brief"
     if not summary:
@@ -212,63 +250,7 @@ def _parse_report(raw: str, domain: str) -> IntelligenceReport:
         key_themes=key_themes[:5],
         notable_signals=notable_signals[:5],
         sentiment=sentiment,
-        quality_score=0.0,       # will be set by Judge
-        quality_feedback="",     # will be set by Judge
+        quality_score=0.0,
+        quality_feedback="",
         generated_at=datetime.now(timezone.utc).isoformat(),
     )
-
-
-# ─────────────────────────────────────────
-# NODE 4: JUDGE
-# Scores the report, routes back if quality is low
-# ─────────────────────────────────────────
-def judge_node(state: AgentState) -> AgentState:
-    report = state["current_report"]
-    domain = report["domain"]
-
-    logger.info(f"=== JUDGE: scoring report for '{domain}' ===")
-
-    prompt = f"""You are a quality judge for intelligence reports. Score this report strictly.
-
-REPORT:
-Title: {report['title']}
-Summary: {report['summary']}
-Key Themes: {', '.join(report['key_themes'])}
-Notable Signals: {', '.join(report['notable_signals'])}
-Sentiment: {report['sentiment']}
-
-Score this report on:
-1. Specificity (does it mention concrete facts, not vague generalities?)
-2. Completeness (does it have all sections filled with real content?)
-3. Coherence (does it make sense as an intelligence briefing?)
-
-Respond in exactly this format:
-SCORE: [a number between 0.0 and 1.0]
-FEEDBACK: [one sentence explaining the score]"""
-
-    response = llm.invoke(prompt)
-    raw = response.content.strip()
-
-    # Parse score and feedback
-    score = 0.5
-    feedback = "Could not parse judge response"
-
-    for line in raw.split("\n"):
-        line = line.strip()
-        if line.startswith("SCORE:"):
-            try:
-                score = float(line.replace("SCORE:", "").strip())
-                score = max(0.0, min(1.0, score))
-            except ValueError:
-                pass
-        elif line.startswith("FEEDBACK:"):
-            feedback = line.replace("FEEDBACK:", "").strip()
-
-    logger.info(f"  Quality score: {score:.2f} — {feedback}")
-
-    scored_report = {**report, "quality_score": score, "quality_feedback": feedback}
-
-    return {
-        **state,
-        "current_report": scored_report,
-    }
