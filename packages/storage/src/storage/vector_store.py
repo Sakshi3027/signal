@@ -39,6 +39,7 @@ def get_embedder() -> SentenceTransformer:
     global _embedder
     if _embedder is None:
         logger.info(f"Loading embedding model: {EMBEDDING_MODEL}")
+        # Use a smaller, faster model for production
         _embedder = SentenceTransformer(EMBEDDING_MODEL)
     return _embedder
 

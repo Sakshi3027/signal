@@ -55,5 +55,5 @@ def health_check():
 @app.on_event("startup")
 async def startup():
     logger.info("Signal API starting up...")
-    health = check_health()
-    logger.info(f"Health: {health}")
+    # Don't load heavy models at startup — load lazily on first request
+    logger.info("API ready — models will load on first request")
