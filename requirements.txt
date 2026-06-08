@@ -197,9 +197,6 @@ sentence-transformers==5.5.1
 setuptools==82.0.1
 sgmllib3k==1.0.0
 shellingham==1.5.4
--e file:///Users/saksh/signal/packages/agent
--e file:///Users/saksh/signal/packages/ingestion
--e file:///Users/saksh/signal/packages/storage
 simplejson==4.1.1
 six==1.17.0
 smmap==5.0.3
