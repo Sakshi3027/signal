@@ -5,6 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",
     "langsmith>=0.8.9",
+    "modal>=0.73",
     "python-multipart>=0.0.9",
     "uvicorn[standard]>=0.29",
 ]
