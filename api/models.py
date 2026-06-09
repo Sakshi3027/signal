@@ -19,14 +19,21 @@ class ReportResponse(BaseModel):
 
     @classmethod
     def from_db_row(cls, row: dict) -> "ReportResponse":
+        def split_field(val):
+            if not val:
+                return []
+            if isinstance(val, list):
+                return val
+            return [t.strip() for t in str(val).split(",") if t.strip()]
+
         return cls(
             id=row["id"],
             run_id=row["run_id"],
             domain=row["domain"],
             title=row["title"],
             summary=row["summary"],
-            key_themes=[t.strip() for t in row.get("key_themes", "").split(",") if t.strip()],
-            notable_signals=[s.strip() for s in row.get("notable_signals", "").split(",") if s.strip()],
+            key_themes=split_field(row.get("key_themes")),
+            notable_signals=split_field(row.get("notable_signals")),
             sentiment=row["sentiment"],
             quality_score=row["quality_score"],
             quality_feedback=row.get("quality_feedback"),
