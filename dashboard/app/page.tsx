@@ -22,19 +22,24 @@ export default function Home() {
   const [triggering, setTriggering] = useState(false);
 
   useEffect(() => {
-    Promise.all([
-      api.getReports(domain),
-      api.getDomainStats(),
-      api.getTrends(7),
-      api.getSources(),
-    ]).then(([r, s, t, src]) => {
-      setReports(r);
-      setStats(s);
-      setTrends(t);
-      setSources(src);
-    }).catch(console.error)
+    // Load each independently — don't let one failure block others
+    api.getReports(domain)
+      .then(setReports)
+      .catch(e => console.error("Reports failed:", e))
       .finally(() => setLoading(false));
-  }, [domain]);
+
+    api.getDomainStats()
+      .then(setStats)
+      .catch(e => console.error("Stats failed:", e));
+
+    api.getTrends(7)
+      .then(setTrends)
+      .catch(e => console.error("Trends failed:", e));
+
+    api.getSources()
+      .then(setSources)
+      .catch(e => console.error("Sources failed:", e));
+}, [domain]);
 
   async function triggerPipeline() {
     setTriggering(true);
